@@ -1,24 +1,32 @@
+/**
+ * Creates the dominos that are used during play.
+ * Features a constructor, rotateDomino which swaps the values of the left
+ * and right side, getLeftValue which will return the left side of a
+ * domino, getRightValue which returns the right side value, and toString
+ * which returns the string representation of a domino, [1 4] for example.
+ */
 public class Domino {
-    private int left;
-    private int right;
 
-    public Domino(int left, int right) {
-        this.left = left;
-        this.right = right;
+    private int leftValue;
+    private int rightValue;
+
+    public Domino(int l, int r) {
+        leftValue = l;
+        rightValue = r;
     }
 
-    public int getLeft() {
-        return left;
+    public void rotateDomino() {
+        int temp = leftValue;
+        leftValue = rightValue;
+        rightValue = temp;
     }
 
-    public int getRight() {
-        return right;
-    }
+    public int getLeftValue() {return leftValue;}
 
-    public void flip() {
-        int temp = left;
-        left = right;
-        right = temp;
+    public int getRightValue() {return rightValue;}
 
+    public String toString() {
+        return "[" + leftValue + " " + rightValue + "]";
     }
 }
+
