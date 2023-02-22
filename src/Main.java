@@ -1,4 +1,6 @@
 /**
+ * Jack Vanlyssel
+ *
  * This class launches the game using startGame which in turn
  * creates a player, an AI, a board, and a boneyard. The
  * player and AI are both passed the board and boneyard.
@@ -42,7 +44,8 @@ public class Main {
         gameOver(player, computer);
     }
     private static boolean isGameOver(Player player, Computer computer) {
-        return player.getTrayLength() == 0 || computer.getTrayLength() == 0 || (!player.getCanPlay() && !computer.getCanPlay());
+        return player.getTrayLength() == 0 || computer.getTrayLength() == 0
+                || (!player.getCanPlay() && !computer.getCanPlay());
     }
     private static void gameOver(Player player, Computer computer) {
         int playerScore = player.getScore();

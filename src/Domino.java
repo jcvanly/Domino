@@ -1,9 +1,12 @@
 /**
- * Creates the dominos that are used during play.
- * Features a constructor, rotateDomino which swaps the values of the left
- * and right side, getLeftValue which will return the left side of a
- * domino, getRightValue which returns the right side value, and toString
- * which returns the string representation of a domino, [1 4] for example.
+ * Jack Vanlyssel
+ *
+ * Creates the dominoes that are used during play. Features
+ * a constructor, rotateDomino which swaps the values of the
+ * left and right side, getLeftValue which will return the left
+ * side of a domino, getRightValue which returns the right side
+ * value, and toString which returns the string representation
+ * of a domino, [1 4] for example.
  */
 public class Domino {
 
