@@ -54,18 +54,19 @@ public class Main {
         System.out.println("Player score: " + playerScore);
         System.out.println("Computer score: " + compScore);
 
-        if (playerScore > compScore) {
+        if (playerScore < compScore) {
             System.out.println("Player Wins!");
-        } else if (compScore > playerScore) {
+        } else if (compScore < playerScore) {
             System.out.println("Computer Wins!");
-        } else {
-            System.out.println("Scores are equal! The last player wins:");
-            if (player instanceof Player) {
-                System.out.println("Computer Wins!");
-            } else {
-                System.out.println("Player Wins!");
-            }
         }
+//        else {
+//            System.out.println("Scores are equal! The last player wins:");
+//            if (player instanceof Player) {
+//                System.out.println("Computer Wins!");
+//            } else {
+//                System.out.println("Player Wins!");
+//            }
+//        }
     }
 }
 
