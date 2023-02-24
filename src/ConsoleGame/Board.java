@@ -1,4 +1,6 @@
-package ConsoleGame; /**
+package ConsoleGame;
+
+/**
  * Jack Vanlyssel
  *
  * The ConsoleGame.Board class will generate the board that the dominoes

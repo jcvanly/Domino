@@ -1,8 +1,5 @@
 package ConsoleGame;
 
-import ConsoleGame.Board;
-import ConsoleGame.Boneyard;
-
 /**
  * Jack Vanlyssel
  *

@@ -5,6 +5,7 @@ import ConsoleGame.Boneyard;
 import ConsoleGame.Computer;
 import ConsoleGame.Player;
 
+
 /**
  * Jack Vanlyssel
  *
@@ -66,14 +67,6 @@ public class GUIDominoes {
         } else if (compScore < playerScore) {
             System.out.println("ConsoleGame.Computer Wins!");
         }
-//        else {
-//            System.out.println("Scores are equal! The last player wins:");
-//            if (player instanceof ConsoleGame.Player) {
-//                System.out.println("ConsoleGame.Computer Wins!");
-//            } else {
-//                System.out.println("ConsoleGame.Player Wins!");
-//            }
-//        }
     }
 }
 

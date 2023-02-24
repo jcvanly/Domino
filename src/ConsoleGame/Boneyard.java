@@ -1,4 +1,6 @@
-package ConsoleGame; /**
+package ConsoleGame;
+
+/**
  * Jack Vanlyssel
  *
  * The ConsoleGame.Boneyard is a pile of dominoes that players must draw

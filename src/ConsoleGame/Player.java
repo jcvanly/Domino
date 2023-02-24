@@ -1,4 +1,6 @@
-package ConsoleGame; /**
+package ConsoleGame;
+
+/**
  * Defines the player class which will handle input for the human
  * player. The player class is passed a ConsoleGame.Boneyard and ConsoleGame.Board on creation.
  * The player is then prompted to enter input by takeTurn. They can
@@ -10,11 +12,6 @@ package ConsoleGame; /**
  * domino is played.
  *
  */
-
-import ConsoleGame.Board;
-import ConsoleGame.Boneyard;
-import ConsoleGame.Domino;
-import ConsoleGame.Hand;
 
 import java.util.Scanner;
 import static java.lang.System.exit;

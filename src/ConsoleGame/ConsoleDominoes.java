@@ -1,9 +1,5 @@
 package ConsoleGame;
 
-import ConsoleGame.Board;
-import ConsoleGame.Boneyard;
-import ConsoleGame.Computer;
-
 /**
  * Jack Vanlyssel
  *
@@ -65,14 +61,6 @@ public class ConsoleDominoes {
         } else if (compScore < playerScore) {
             System.out.println("ConsoleGame.Computer Wins!");
         }
-//        else {
-//            System.out.println("Scores are equal! The last player wins:");
-//            if (player instanceof ConsoleGame.Player) {
-//                System.out.println("ConsoleGame.Computer Wins!");
-//            } else {
-//                System.out.println("ConsoleGame.Player Wins!");
-//            }
-//        }
     }
 }
 

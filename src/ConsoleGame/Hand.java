@@ -1,4 +1,6 @@
-package ConsoleGame; /**
+package ConsoleGame;
+
+/**
  * Jack Vanlyssel
  *
  * ConsoleGame.Hand keeps track of the dominoes that a player currently
@@ -9,8 +11,6 @@ package ConsoleGame; /**
  * of all the dominoes in a players hand. toString will display
  * your hand of dominoes.
  */
-
-import ConsoleGame.Domino;
 
 import java.util.ArrayList;
 import java.util.List;
