@@ -1,13 +1,18 @@
+package ConsoleGame;
+
+import ConsoleGame.Board;
+import ConsoleGame.Boneyard;
+
 /**
  * Jack Vanlyssel
  *
  * This class creates the computer player that you will play
- * against. The computer is passed a Boneyard and a board
+ * against. The computer is passed a ConsoleGame.Boneyard and a board
  * just like the player is. Most of the work is done in
  * takeTurn which is the AI loop for the computer player.
  * Essentially, the computer just checks if a domino is
  * playable, then he plays it. If the computer can not
- * play a domino, he will draw a new one from the Boneyard.
+ * play a domino, he will draw a new one from the ConsoleGame.Boneyard.
  */
 
 public class Computer {
@@ -29,7 +34,7 @@ public class Computer {
     }
 
     public void takeTurn() {
-        System.out.println("Computer's turn");
+        System.out.println("ConsoleGame.Computer's turn");
         int rightPlayableVal = playArea.getRight().getRightValue();
         int leftPlayableVal = playArea.getLeft().getLeftValue();
 
@@ -89,7 +94,7 @@ public class Computer {
     }
 
     public String toString() {
-        return "Computer has " + tray.getSize() + " dominoes";
+        return "ConsoleGame.Computer has " + tray.getSize() + " dominoes";
     }
 
     private void initTray() {
@@ -100,12 +105,12 @@ public class Computer {
 
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
-            System.out.println("Computer can't play.");
+            System.out.println("ConsoleGame.Computer can't play.");
             canPlay = false;
         }
         else {
             Domino d = boneyard.fetchDomino();
-            System.out.println("Computer drew from the boneyard.");
+            System.out.println("ConsoleGame.Computer drew from the boneyard.");
             tray.addDomino(d);
         }
     }
@@ -113,12 +118,12 @@ public class Computer {
     private void playDomino(Domino dominoPlayed, char location) {
         //PLAY RIGHT SIDE
         if (location=='r') {
-            System.out.println("Computer plays " + dominoPlayed + " at right");
+            System.out.println("ConsoleGame.Computer plays " + dominoPlayed + " at right");
             playArea.playRight(dominoPlayed);
         }
         //PLAY LEFT SIDE
         else {
-            System.out.println("Computer plays " + dominoPlayed + " at left");
+            System.out.println("ConsoleGame.Computer plays " + dominoPlayed + " at left");
             playArea.playLeft(dominoPlayed);
         }
     }

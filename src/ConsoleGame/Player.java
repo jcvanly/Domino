@@ -1,8 +1,8 @@
-/**
+package ConsoleGame; /**
  * Defines the player class which will handle input for the human
- * player. The player class is passed a Boneyard and Board on creation.
+ * player. The player class is passed a ConsoleGame.Boneyard and ConsoleGame.Board on creation.
  * The player is then prompted to enter input by takeTurn. They can
- * choose to either draw from the Boneyard, play a domino, or quit.
+ * choose to either draw from the ConsoleGame.Boneyard, play a domino, or quit.
  * If they pick play, the user will be prompted with picking a
  * domino, choosing whether to play it on the left or right, and
  * choosing whether to rotate it or not. After specifying how they
@@ -10,6 +10,11 @@
  * domino is played.
  *
  */
+
+import ConsoleGame.Board;
+import ConsoleGame.Boneyard;
+import ConsoleGame.Domino;
+import ConsoleGame.Hand;
 
 import java.util.Scanner;
 import static java.lang.System.exit;
@@ -25,9 +30,9 @@ public class Player {
 
     private Scanner scanner;
 
-    public Player(Boneyard boneyard, Board playArea) {
+    public Player(Boneyard boneyard, Board board) {
         this.boneyard = boneyard;
-        this.playArea = playArea;
+        this.playArea = board;
         canPlay = true;
         hand = new Hand();
         initTray();
@@ -81,7 +86,7 @@ public class Player {
         System.out.println("""
                 Human's turn
                 [p] Play Domino
-                [d] Draw from Boneyard
+                [d] Draw from ConsoleGame.Boneyard
                 [q] Quit""");
         return scanner.next().charAt(0);
     }
@@ -144,7 +149,7 @@ public class Player {
 
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
-            System.out.println("Boneyard is empty! Nothing played.");
+            System.out.println("ConsoleGame.Boneyard is empty! Nothing played.");
             canPlay = false;
         } else {
             Domino d = boneyard.fetchDomino();

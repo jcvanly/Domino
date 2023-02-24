@@ -1,21 +1,28 @@
+package GUIGame;
+
+import ConsoleGame.Board;
+import ConsoleGame.Boneyard;
+import ConsoleGame.Computer;
+import ConsoleGame.Player;
+
 /**
  * Jack Vanlyssel
  *
- * This class launches the game using startGame which in turn
+ * This class laMunches the game using startGame which in turn
  * creates a player, an AI, a board, and a boneyard. The
  * player and AI are both passed the board and boneyard.
  * isGameOver will check for game over conditions
  * and if they are met, gameOver will then display the winner
  * and scores.
  */
-public class Main {
+public class GUIDominoes {
 
     public static void main(String[] args) {
         startGame();
     }
 
     private static Computer computer;
-    private static Player player;
+    private static ConsoleGame.Player player;
     private static boolean gameIsOver;
     private static boolean lastPlayerComp;
 
@@ -23,7 +30,7 @@ public class Main {
         Boneyard boneYard = new Boneyard();
         Board playArea = new Board();
         computer = new Computer(boneYard, playArea);
-        player = new Player(boneYard, playArea);
+        player = new ConsoleGame.Player(boneYard, playArea);
         gameIsOver = false;
         lastPlayerComp = false;
 
@@ -43,7 +50,7 @@ public class Main {
         }
         gameOver(player, computer);
     }
-    private static boolean isGameOver(Player player, Computer computer) {
+    private static boolean isGameOver(ConsoleGame.Player player, Computer computer) {
         return player.getTrayLength() == 0 || computer.getTrayLength() == 0
                 || (!player.getCanPlay() && !computer.getCanPlay());
     }
@@ -51,20 +58,20 @@ public class Main {
         int playerScore = player.getScore();
         int compScore = computer.getScore();
         System.out.println("\n\nGameOver!!!");
-        System.out.println("Player score: " + playerScore);
-        System.out.println("Computer score: " + compScore);
+        System.out.println("ConsoleGame.Player score: " + playerScore);
+        System.out.println("ConsoleGame.Computer score: " + compScore);
 
         if (playerScore < compScore) {
-            System.out.println("Player Wins!");
+            System.out.println("ConsoleGame.Player Wins!");
         } else if (compScore < playerScore) {
-            System.out.println("Computer Wins!");
+            System.out.println("ConsoleGame.Computer Wins!");
         }
 //        else {
 //            System.out.println("Scores are equal! The last player wins:");
-//            if (player instanceof Player) {
-//                System.out.println("Computer Wins!");
+//            if (player instanceof ConsoleGame.Player) {
+//                System.out.println("ConsoleGame.Computer Wins!");
 //            } else {
-//                System.out.println("Player Wins!");
+//                System.out.println("ConsoleGame.Player Wins!");
 //            }
 //        }
     }

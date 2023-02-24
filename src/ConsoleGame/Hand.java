@@ -1,7 +1,7 @@
-/**
+package ConsoleGame; /**
  * Jack Vanlyssel
  *
- * Hand keeps track of the dominoes that a player currently
+ * ConsoleGame.Hand keeps track of the dominoes that a player currently
  * has. getHandSize returns the size of a player's hand. addDomino
  * adds a domino to the players hand. removeDominoAt is used to
  * remove a domino at a specific index. seeDomino lets you peak
@@ -9,6 +9,8 @@
  * of all the dominoes in a players hand. toString will display
  * your hand of dominoes.
  */
+
+import ConsoleGame.Domino;
 
 import java.util.ArrayList;
 import java.util.List;

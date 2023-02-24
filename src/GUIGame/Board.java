@@ -1,12 +1,14 @@
-/**
+package GUIGame; /**
  * Jack Vanlyssel
  *
- * The Board class will generate the board that the dominoes
+ * The ConsoleGame.Board class will generate the board that the dominoes
  * are played on. In this case, the board is shown in text.
  * The board is a Deque and you can use playRight and playLeft
  * in order play dominoes on either side of the board. toString
  * is used to generate the string representation of the board.
  */
+
+import ConsoleGame.Domino;
 
 import java.util.Deque;
 import java.util.LinkedList;
