@@ -10,12 +10,14 @@ package GUIGame; /**
  * innitBoneyard will fill the ConsoleGame.Boneyard with 28 dominoes.
  */
 
-import ConsoleGame.Domino;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.Collections;
 import java.util.LinkedList;
 
-public class Boneyard {
+public class Boneyard extends Text {
 
     private static final int LARGEST_DOMINO_VALUE = 6;
 
@@ -24,6 +26,15 @@ public class Boneyard {
     public Boneyard() {
         dominoList = new LinkedList<>();
         initBoneyard();
+
+        setText(this.toString());
+        setFont(new Font("Verdana", 20));
+        setFill(Color.WHITE);
+
+    }
+
+    public void updateDisplay() {
+        setText(this.toString());
     }
 
     public int getSize() {

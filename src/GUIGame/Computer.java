@@ -1,9 +1,9 @@
 package GUIGame;
 
-import ConsoleGame.Board;
-import ConsoleGame.Boneyard;
-import ConsoleGame.Domino;
-import ConsoleGame.Hand;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
 
 /**
  * Jack Vanlyssel
@@ -17,56 +17,61 @@ import ConsoleGame.Hand;
  * play a domino, he will draw a new one from the ConsoleGame.Boneyard.
  */
 
-public class Computer {
+public class Computer extends Text{
 
     private final int STARTING_AMOUNT = 7;
 
     private Boneyard boneyard;
-    private Board playArea;
-    private Hand tray;
+    private Board board;
+    private Hand hand;
     private boolean canPlay;
 
     public Computer(Boneyard boneyard, Board board) {
         this.boneyard = boneyard;
-        this.playArea = board;
+        this.board = board;
         canPlay = true;
 
-        tray = new Hand();
+        hand = new Hand();
         initTray();
+
+        setText(this.toString());
+        setFont(new Font("Verdana", 20));
+        setFill(Color.WHITE);
+
     }
 
     public void takeTurn() {
         System.out.println("ConsoleGame.Computer's turn");
-        int rightPlayableVal = playArea.getRight().getRightValue();
-        int leftPlayableVal = playArea.getLeft().getLeftValue();
+        int rightPlayableVal = board.getRight().getRightValue();
+        int leftPlayableVal = board.getLeft().getLeftValue();
 
         int i = 0;
-        while (i < tray.getSize()) {
-            Domino d = tray.seeDominoAt(i);
+        while (i < hand.getSize()) {
+            Domino d = hand.seeDominoAt(i);
             if (d.getRightValue() == leftPlayableVal ||
                     leftPlayableVal == 0 || d.getRightValue() == 0) {
                 //PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 playDomino(d, 'l');
                 break;
             }
             else if (d.getLeftValue() == rightPlayableVal ||
                     rightPlayableVal == 0 || d.getLeftValue() == 0) {
                 //PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 playDomino(d, 'r');
                 break;
             }
             else if (d.getRightValue() == rightPlayableVal) {
                 //ROTATE IT; PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 d.rotateDomino();
                 playDomino(d, 'r');
                 break;
             }
             else if (d.getLeftValue() == leftPlayableVal) {
                 //ROTATE IT; PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 d.rotateDomino();
                 playDomino(d, 'l');
                 break;
@@ -76,11 +81,15 @@ public class Computer {
             }
         }
 
-        if (i == tray.getSize()) {
+        if (i == hand.getSize()) {
             drawFromBoneyard();
         }
 
         System.out.println(this);
+    }
+
+    public void updateDisplay() {
+        setText(this.toString());
     }
 
     public boolean getCanPlay() {
@@ -88,20 +97,20 @@ public class Computer {
     }
 
     public int getTrayLength() {
-        return tray.getSize();
+        return hand.getSize();
     }
 
     public int getScore() {
-        return tray.getTrayScore();
+        return hand.getTrayScore();
     }
 
     public String toString() {
-        return "ConsoleGame.Computer has " + tray.getSize() + " dominoes";
+        return "ConsoleGame.Computer has " + hand.getSize() + " dominoes";
     }
 
     private void initTray() {
         for (int i = 0; i < STARTING_AMOUNT; i++) {
-            tray.addDomino(boneyard.fetchDomino());
+            hand.addDomino(boneyard.fetchDomino());
         }
     }
 
@@ -113,7 +122,7 @@ public class Computer {
         else {
             Domino d = boneyard.fetchDomino();
             System.out.println("ConsoleGame.Computer drew from the boneyard.");
-            tray.addDomino(d);
+            hand.addDomino(d);
         }
     }
 
@@ -121,12 +130,12 @@ public class Computer {
         //PLAY RIGHT SIDE
         if (location=='r') {
             System.out.println("ConsoleGame.Computer plays " + dominoPlayed + " at right");
-            playArea.playRight(dominoPlayed);
+            board.playRight(dominoPlayed);
         }
         //PLAY LEFT SIDE
         else {
             System.out.println("ConsoleGame.Computer plays " + dominoPlayed + " at left");
-            playArea.playLeft(dominoPlayed);
+            board.playLeft(dominoPlayed);
         }
     }
 
