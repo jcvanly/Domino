@@ -1,10 +1,18 @@
 package GUIGame;
 
-import ConsoleGame.Board;
-import ConsoleGame.Boneyard;
-import ConsoleGame.Computer;
-import ConsoleGame.Player;
+import javafx.animation.AnimationTimer;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.util.Objects;
 
 /**
  * Jack Vanlyssel
@@ -16,57 +24,293 @@ import ConsoleGame.Player;
  * and if they are met, gameOver will then display the winner
  * and scores.
  */
+
 public class GUIDominoes {
 
-    public static void main(String[] args) {
-        startGame();
-    }
+    private static final int WIDTH = 1500;
+    private static final int HEIGHT = 700;
 
-    private static Computer computer;
-    private static ConsoleGame.Player player;
-    private static boolean gameIsOver;
-    private static boolean lastPlayerComp;
+    private AnchorPane mainPane;
+    private Scene mainScene;
+    private Stage mainStage;
+    private Player player;
+    private AnimationTimer gameTimer;
 
-    private static void startGame() {
-        Boneyard boneYard = new Boneyard();
-        Board playArea = new Board();
-        computer = new Computer(boneYard, playArea);
-        player = new ConsoleGame.Player(boneYard, playArea);
+    private Computer computer;
+    private Boneyard boneyard;
+    private Board board;
+
+
+    private boolean turnMade;
+    private boolean gameIsOver;
+    private boolean lastPlayerComp;
+
+    /***
+     * initialises the mainPane, mainScene, mainStage, boneyard, play area,
+     * player, and computer.
+     * calls helper methods to generate objects to display
+     */
+    public GUIDominoes() {
+        mainPane = new AnchorPane();
+        mainScene = new Scene(mainPane, WIDTH, HEIGHT);
+        mainStage = new Stage();
+        mainStage.setScene(mainScene);
+
+        mainStage.setTitle("Dominoes!");
+        mainStage.setResizable(false);
+        Image icon = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\icon.png");
+        mainStage.getIcons().add(icon);
+
+        boneyard = new Boneyard();
+        board = new Board();
+        player = new Player(boneyard, board);
+        computer = new Computer(boneyard, board);
+        turnMade = false;
         gameIsOver = false;
         lastPlayerComp = false;
 
-        System.out.println("Dominoes!");
-        System.out.println(computer);
+        createGameInfoText();
+        createPlayerTray();
+        createPlayArea();
+        createButtons();
+        createBackGround();
+        createGameLoop();
 
-        while (true) {
-            player.takeTurn();
-            if (isGameOver(player, computer)) {
-                break;
-            }
+        player.updateDisplay();
+        boneyard.updateDisplay();
+        computer.updateDisplay();
+        board.updateDisplay();
+    }
 
-            computer.takeTurn();
-            if (isGameOver(player, computer)) {
-                break;
-            }
-        }
-        gameOver(player, computer);
+    /***
+     * gets mainStage of the display
+     * @return mainStage
+     */
+    public Stage getMainStage() {
+        return mainStage;
     }
-    private static boolean isGameOver(ConsoleGame.Player player, Computer computer) {
-        return player.getTrayLength() == 0 || computer.getTrayLength() == 0
-                || (!player.getCanPlay() && !computer.getCanPlay());
+
+    /***
+     * creates background of the display
+     */
+    private void createBackGround() {
+        Image backgroundImage = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\game_bg.png");
+        BackgroundImage background = new BackgroundImage(backgroundImage, BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.DEFAULT, null);
+        mainPane.setBackground(new Background(background));
     }
-    private static void gameOver(Player player, Computer computer) {
+
+    /***
+     * adds player tray to the display
+     */
+    private void createPlayerTray() {
+        player.setLayoutX(400);
+        player.setLayoutY(240);
+        mainPane.getChildren().add(player);
+    }
+
+    /***
+     * adds the ext info about the boneyard and computer to the display
+     */
+    private void createGameInfoText() {
+        boneyard.setLayoutX(600);
+        boneyard.setLayoutY(175);
+
+        computer.setLayoutX(625);
+        computer.setLayoutY(150);
+
+        mainPane.getChildren().addAll(boneyard,computer);
+    }
+
+    /***
+     * adds the play area to the display
+     */
+    private void createPlayArea() {
+        board.setLayoutX(10);
+        board.setLayoutY(10);
+        mainPane.getChildren().addAll(board);
+    }
+
+    /***
+     * adds the usable buttons to the display
+     */
+    private void createButtons() {
+        createDrawButton();
+        createPassButton();
+        createRadioButton();
+    }
+
+    /***
+     * creates button the player uses to draw
+     */
+    private void createDrawButton() {
+        Button drawButton = new Button("Draw");
+        drawButton.setLayoutX(450);
+        drawButton.setLayoutY(190);
+        //Button Styling
+        drawButton.setPrefWidth(100);
+        drawButton.setPrefHeight(25);
+        drawButton.setFont(Font.font("Verdana", 15));
+        mainPane.getChildren().add(drawButton);
+
+        drawButton.setOnAction(e ->{
+            player.takeTurn("Draw");
+            turnMade = true;
+        });
+    }
+
+    /***
+     * creates button uses to pass
+     */
+    private void createPassButton() {
+        Button passButton = new Button("Pass");
+        passButton.setLayoutX(950);
+        passButton.setLayoutY(190);
+        //Button Styling
+        passButton.setPrefWidth(100);
+        passButton.setPrefHeight(25);
+        passButton.setFont(Font.font("Verdana", 15));
+        mainPane.getChildren().add(passButton);
+
+        passButton.setOnAction(e -> {
+            player.takeTurn("Pass");
+            turnMade = true;
+        });
+    }
+
+    /***
+     * creates radio buttons the player uses to determine if they are going
+     * to attempt to play on the left or right side of the play area
+     */
+    private void createRadioButton() {
+        HBox buttonBox = new HBox();
+        ToggleGroup group = new ToggleGroup();
+
+        RadioButton leftBtn = new RadioButton("Left");
+        leftBtn.setToggleGroup(group);
+        leftBtn.setPrefWidth(100);
+        leftBtn.setPrefHeight(25);
+        leftBtn.setFont(Font.font("Verdana", 15));
+        leftBtn.setTextFill(Color.WHITE);
+
+        RadioButton rightBtn = new RadioButton("Right");
+        rightBtn.setToggleGroup(group);
+        rightBtn.setSelected(true);
+        buttonBox.getChildren().addAll(leftBtn, rightBtn);
+        rightBtn.setPrefWidth(100);
+        rightBtn.setPrefHeight(25);
+        rightBtn.setFont(Font.font("Verdana", 15));
+        rightBtn.setTextFill(Color.WHITE);
+
+        buttonBox.setLayoutX(675);
+        buttonBox.setLayoutY(190);
+        mainPane.getChildren().add(buttonBox);
+
+        rightBtn.setOnAction(e -> player.setPlayDirection('r'));
+
+        leftBtn.setOnAction(e -> player.setPlayDirection('l'));
+    }
+
+    /***
+     * creates and displays the end game text depending on who won
+     */
+    private void createEndGameText() {
         int playerScore = player.getScore();
         int compScore = computer.getScore();
-        System.out.println("\n\nGameOver!!!");
-        System.out.println("ConsoleGame.Player score: " + playerScore);
-        System.out.println("ConsoleGame.Computer score: " + compScore);
 
-        if (playerScore < compScore) {
-            System.out.println("ConsoleGame.Player Wins!");
-        } else if (compScore < playerScore) {
-            System.out.println("ConsoleGame.Computer Wins!");
+        Text winnerText = new Text();
+        winnerText.setFont(new Font("Verdana", 55));
+        winnerText.setFill(Color.WHITE);
+
+        if (playerScore > compScore) {
+            winnerText.setText("Computer Wins!");
+        } else if (compScore > playerScore) {
+            winnerText.setText("Player Wins!");
+        } else {
+            System.out.println("Scores are equal! The last player wins:");
+            if (lastPlayerComp) {
+                winnerText.setText("Computer Wins!");
+            } else {
+                winnerText.setText("Player Wins!");
+            }
+        }
+        winnerText.setLayoutX(600);
+        winnerText.setLayoutY(220);
+
+        mainPane.getChildren().add(winnerText);
+    }
+
+    /***
+     * creates and starts the game loop
+     */
+    private void createGameLoop() {
+        gameTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                checkIfDominoPlayed();
+                if (turnMade) {
+                    lastPlayerComp = false;
+                    checkForGameOver();
+                    if(!gameIsOver) {
+                        computer.takeTurn();
+                        lastPlayerComp = true;
+                    }
+                    player.updateDisplay();
+                    boneyard.updateDisplay();
+                    computer.updateDisplay();
+                    board.updateDisplay();
+                    checkForGameOver();
+                    turnMade = false;
+                }
+                if (gameIsOver) {
+                    gameOver();
+                    gameIsOver = false;
+                }
+            }
+        };
+        gameTimer.start();
+    }
+
+    /***
+     * Checks if the player has clicked on a domino in their hand
+     */
+    private void checkIfDominoPlayed() {
+        if(player.hasDominoSelected()) {
+            int playedDominoes = board.getSize();
+            player.takeTurn("Play");
+            if(playedDominoes != board.getSize()) turnMade = true;
         }
     }
+
+    /***
+     * Checks if either the player or computer has won
+     */
+    private void checkForGameOver() {
+        if (boneyard.getSize() == 0) {
+            gameIsOver = true;
+        }
+
+        if(player.getTrayLength() == 0) {
+            gameIsOver = true;
+        }
+
+        if(computer.getTrayLength() == 0) {
+            gameIsOver = true;
+        }
+        //If neither of them have played
+        if (!player.getCanPlay() && !computer.getCanPlay()) {
+            gameIsOver = true;
+        }
+    }
+
+    /***
+     * Removes some game elements and displays the winner Text
+     */
+    private void gameOver() {
+        mainPane.getChildren().clear();
+        createBackGround();
+        createPlayArea();
+        createEndGameText();
+    }
+
 }
 

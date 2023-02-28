@@ -12,7 +12,6 @@ package GUIGame;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.awt.*;
 import java.util.Deque;
 import java.util.LinkedList;
 import javafx.scene.shape.Rectangle;

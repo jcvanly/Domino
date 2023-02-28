@@ -11,66 +11,70 @@ package GUIGame; /**
  *
  */
 
-import ConsoleGame.Board;
-import ConsoleGame.Boneyard;
-import ConsoleGame.Domino;
-import ConsoleGame.Hand;
-
-import java.util.Scanner;
-
-import static java.lang.System.exit;
-
-public class Player {
+ import javafx.scene.layout.VBox;
+public class Player extends VBox {
 
     private final int STARTING_AMOUNT = 7;
 
     private Boneyard boneyard;
-    private Board playArea;
+    private Board board;
     private Hand hand;
     private boolean canPlay;
 
-    private Scanner scanner;
+    private int selectedDominoIndex;
+    private char playDirection;
 
     public Player(Boneyard boneyard, Board board) {
         this.boneyard = boneyard;
-        this.playArea = board;
+        this.board = board;
+        playDirection = 'r';
         canPlay = true;
+
         hand = new Hand();
         initTray();
-        scanner = new Scanner(System.in);
+
+        hand.updateDisplay();
+
+        getChildren().add(hand);
     }
 
-    public void takeTurn() {
-        System.out.println(boneyard);
-        System.out.println(playArea);
-        System.out.println(hand);
+    public void updateDisplay() {
+        getChildren().clear();
+        hand.updateDisplay();
+        getChildren().addAll(hand);
+    }
 
-        char input;
-        do {
-            input = getUserInput();
-            switch (input) {
-                case 'p' -> play();
-                case 'd' -> drawFromBoneyard();
-                case 'q' -> exit(0);
-                default -> System.out.println("Invalid input!");
-            }
-        } while (input != 'p' && input != 'd' && input != 'q');
+    public boolean hasDominoSelected() {
+        selectedDominoIndex = hand.checkForSelected();
+        return selectedDominoIndex != -1;
+    }
 
-        System.out.println(boneyard);
-        System.out.println(playArea);
-        System.out.println(hand);
+    public void takeTurn(String turnType) {
+        if(turnType.equals("Draw")) {
+            drawFromBoneyard();
+        }
+        else if (turnType.equals("Play")) {
+            playDomino();
+        }
+        else {
+            canPlay = false;
+        }
     }
 
     public boolean getCanPlay() {
         return canPlay;
     }
 
+    public void setPlayDirection(char dir) {
+        playDirection = dir;
+    }
+
     public int getTrayLength() {
-        return hand.getSize();
+        return hand.getHandSize();
     }
 
     public int getScore() {
-        return hand.getTrayScore();
+        return hand.getHandScore();
     }
 
     public String toString() {
@@ -83,79 +87,55 @@ public class Player {
         }
     }
 
-    private char getUserInput() {
-        System.out.println("""
-                Human's turn
-                [p] Play Domino
-                [d] Draw from ConsoleGame.Boneyard
-                [q] Quit""");
-        return scanner.next().charAt(0);
+    private void playDomino() {
+        //Attempt to play selected domino at left then right
+        Domino d = hand.getDominoAt(selectedDominoIndex);
+        if (board.getSize() == 0) {
+            hand.removeDominoAt(selectedDominoIndex);
+            placeDomino(d,playDirection);
+        }
+        else {
+            int rightPlayableVal = board.getRight().getRightValue();
+            int leftPlayableVal = board.getLeft().getLeftValue();
+
+            if (playDirection == 'r') {
+                if (d.getLeftValue() == rightPlayableVal ||
+                        rightPlayableVal == 0 || d.getLeftValue() == 0) {
+                    hand.removeDominoAt(selectedDominoIndex);
+                    placeDomino(d, 'r');
+                }
+            }
+            else {
+                if (d.getRightValue() == leftPlayableVal ||
+                        leftPlayableVal == 0 || d.getRightValue() == 0) {
+                    hand.removeDominoAt(selectedDominoIndex);
+                    placeDomino(d, 'l');
+                }
+            }
+        }
+        selectedDominoIndex = -1;
+
     }
 
-    private void play() {
-        int dominoIndex = -1;
-        while (dominoIndex < 0 || dominoIndex >= hand.getSize()) {
-            System.out.println("Which domino? (index)");
-            dominoIndex = scanner.nextInt();
-            if (dominoIndex < 0 || dominoIndex >= hand.getSize()) {
-                System.out.println("Invalid input!");
-            }
+    private void placeDomino(Domino dominoPlayed, char location) {
+        //PLAY RIGHT SIDE
+        if (location=='r') {
+            board.playRight(dominoPlayed);
         }
-
-        char location = ' ';
-        while (location != 'l' && location != 'r') {
-            System.out.println("Left or Right? (l/r)");
-            location = scanner.next().charAt(0);
-            if (location != 'l' && location != 'r') {
-                System.out.println("Invalid input!");
-            }
-        }
-
-        char rotation = ' ';
-        while (rotation != 'y' && rotation != 'n') {
-            System.out.println("Rotate first? (y/n)");
-            rotation = scanner.next().charAt(0);
-            if (rotation != 'y' && rotation != 'n') {
-                System.out.println("Invalid input!");
-            }
-        }
-
-        playDomino(dominoIndex, location, rotation);
-    }
-
-    private void playDomino(int index, char location, char rotation) {
-        Domino dominoPlayed = hand.removeDominoAt(index);
-        if (rotation == 'y') {
-            dominoPlayed.rotateDomino();
-        }
-        int dominoValOnBoard = (location == 'r') ?
-                (playArea.getRight() == null ? 0 : playArea.getRight().getRightValue()) :
-                (playArea.getLeft() == null ? 0 : playArea.getLeft().getLeftValue());
-
-        int dominoValInPlay = (location == 'r') ? dominoPlayed.getLeftValue() : dominoPlayed.getRightValue();
-
-        if (dominoValInPlay == dominoValOnBoard || dominoValOnBoard == 0 || dominoValInPlay == 0) {
-            if (location == 'r') {
-                System.out.println("Playing " + dominoPlayed + " at right");
-                playArea.playRight(dominoPlayed);
-            } else {
-                System.out.println("Playing " + dominoPlayed + " at left");
-                playArea.playLeft(dominoPlayed);
-            }
-        } else {
-            System.out.println("Invalid play");
-            hand.addDomino(dominoPlayed);
+        //PLAY LEFT SIDE
+        else {
+            board.playLeft(dominoPlayed);
         }
     }
 
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
-            System.out.println("ConsoleGame.Boneyard is empty! Nothing played.");
             canPlay = false;
-        } else {
+        }
+        else {
             Domino d = boneyard.fetchDomino();
-            System.out.println("You drew " + d + " from the boneyard.");
             hand.addDomino(d);
         }
     }
+
 }
