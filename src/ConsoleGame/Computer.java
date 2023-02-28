@@ -18,7 +18,7 @@ public class Computer {
 
     private Boneyard boneyard;
     private Board playArea;
-    private Hand tray;
+    private Hand hand;
     private boolean canPlay;
 
     public Computer(Boneyard boneyard, Board board) {
@@ -26,7 +26,7 @@ public class Computer {
         this.playArea = board;
         canPlay = true;
 
-        tray = new Hand();
+        hand = new Hand();
         initTray();
     }
 
@@ -36,32 +36,32 @@ public class Computer {
         int leftPlayableVal = playArea.getLeft().getLeftValue();
 
         int i = 0;
-        while (i < tray.getSize()) {
-            Domino d = tray.seeDominoAt(i);
+        while (i < hand.getSize()) {
+            Domino d = hand.seeDominoAt(i);
             if (d.getRightValue() == leftPlayableVal ||
                     leftPlayableVal == 0 || d.getRightValue() == 0) {
                 //PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 playDomino(d, 'l');
                 break;
             }
             else if (d.getLeftValue() == rightPlayableVal ||
                     rightPlayableVal == 0 || d.getLeftValue() == 0) {
                 //PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 playDomino(d, 'r');
                 break;
             }
             else if (d.getRightValue() == rightPlayableVal) {
                 //ROTATE IT; PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 d.rotateDomino();
                 playDomino(d, 'r');
                 break;
             }
             else if (d.getLeftValue() == leftPlayableVal) {
                 //ROTATE IT; PLAY IT
-                d = tray.removeDominoAt(i);
+                d = hand.removeDominoAt(i);
                 d.rotateDomino();
                 playDomino(d, 'l');
                 break;
@@ -71,7 +71,7 @@ public class Computer {
             }
         }
 
-        if (i == tray.getSize()) {
+        if (i == hand.getSize()) {
             drawFromBoneyard();
         }
 
@@ -83,20 +83,20 @@ public class Computer {
     }
 
     public int getTrayLength() {
-        return tray.getSize();
+        return hand.getSize();
     }
 
     public int getScore() {
-        return tray.getTrayScore();
+        return hand.getTrayScore();
     }
 
     public String toString() {
-        return "ConsoleGame.Computer has " + tray.getSize() + " dominoes";
+        return "ConsoleGame.Computer has " + hand.getSize() + " dominoes";
     }
 
     private void initTray() {
         for (int i = 0; i < STARTING_AMOUNT; i++) {
-            tray.addDomino(boneyard.fetchDomino());
+            hand.addDomino(boneyard.fetchDomino());
         }
     }
 
@@ -108,7 +108,7 @@ public class Computer {
         else {
             Domino d = boneyard.fetchDomino();
             System.out.println("ConsoleGame.Computer drew from the boneyard.");
-            tray.addDomino(d);
+            hand.addDomino(d);
         }
     }
 

@@ -46,7 +46,7 @@ public class Computer extends Text{
         int leftPlayableVal = board.getLeft().getLeftValue();
 
         int i = 0;
-        while (i < hand.getSize()) {
+        while (i < hand.getHandSize()) {
             Domino d = hand.seeDominoAt(i);
             if (d.getRightValue() == leftPlayableVal ||
                     leftPlayableVal == 0 || d.getRightValue() == 0) {
@@ -81,7 +81,7 @@ public class Computer extends Text{
             }
         }
 
-        if (i == hand.getSize()) {
+        if (i == hand.getHandSize()) {
             drawFromBoneyard();
         }
 
@@ -97,15 +97,15 @@ public class Computer extends Text{
     }
 
     public int getTrayLength() {
-        return hand.getSize();
+        return hand.getHandSize();
     }
 
     public int getScore() {
-        return hand.getTrayScore();
+        return hand.getHandScore();
     }
 
     public String toString() {
-        return "ConsoleGame.Computer has " + hand.getSize() + " dominoes";
+        return "ConsoleGame.Computer has " + hand.getHandSize() + " dominoes";
     }
 
     private void initTray() {
