@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
@@ -23,12 +26,20 @@ public class BoardUI extends Application {
         vBox.getChildren().add(startButton);
         vBox.setAlignment(Pos.CENTER);
 
-        HBox hBox = new HBox();
-        hBox.getChildren().add(vBox);
-        hBox.setAlignment(Pos.CENTER);
+        Label titleLabel = new Label("Dominoes");
+        titleLabel.setTextFill(Color.WHITE);
+        titleLabel.setFont(Font.font("Arial", FontWeight.BOLD, 32));
+
+        VBox vboxTitle = new VBox();
+        vboxTitle.getChildren().add(titleLabel);
+        vboxTitle.setAlignment(Pos.CENTER);
+
+        VBox vboxAll = new VBox();
+        vboxAll.getChildren().addAll(vboxTitle, vBox);
+        vboxAll.setAlignment(Pos.CENTER);
 
         BorderPane layout = new BorderPane();
-        layout.setCenter(hBox);
+        layout.setCenter(vboxAll);
         layout.setStyle("-fx-background-color: black;");
 
         Scene scene = new Scene(layout, 300, 200);
