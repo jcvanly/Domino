@@ -1,9 +1,11 @@
 package GUIGame;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -13,12 +15,22 @@ public class BoardUI extends Application {
     public void start(Stage primaryStage) {
         Button startButton = new Button("Start");
         startButton.setOnAction(e -> {
-            primaryStage.close(); // close the start window
-            startGame(new Stage()); // open the game window
+            primaryStage.close();
+            startGame(new Stage());
         });
 
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(startButton);
+        VBox vBox = new VBox();
+        vBox.getChildren().add(startButton);
+        vBox.setAlignment(Pos.CENTER);
+
+        HBox hBox = new HBox();
+        hBox.getChildren().add(vBox);
+        hBox.setAlignment(Pos.CENTER);
+
+        BorderPane layout = new BorderPane();
+        layout.setCenter(hBox);
+        layout.setStyle("-fx-background-color: black;");
+
         Scene scene = new Scene(layout, 300, 200);
 
         primaryStage.setScene(scene);
