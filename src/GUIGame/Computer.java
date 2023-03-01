@@ -105,7 +105,7 @@ public class Computer extends Text{
     }
 
     public String toString() {
-        return "ConsoleGame.Computer has " + hand.getHandSize() + " dominoes";
+        return "Computer has " + hand.getHandSize() + " dominoes";
     }
 
     private void initTray() {
