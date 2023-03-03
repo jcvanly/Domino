@@ -44,14 +44,18 @@ public class Domino extends StackPane {
 
         Line divider = new Line(0,0,0,40);
 
-        leftText = new Text(String.valueOf(l));
-        leftText.setFont(new Font("Verdana", 20));
+        // Unicode characters for domino dots
+        String leftDots = getDots(l);
+        String rightDots = getDots(r);
+
+        leftText = new Text(leftDots);
+        leftText.setFont(new Font("Arial Unicode MS", 20));
         leftText.setFill(Color.BLACK);
         leftText.setTranslateX(-25);
         if (l == 0) leftText.setText("");
 
-        rightText = new Text(String.valueOf(r));
-        rightText.setFont(new Font("Verdana", 20));
+        rightText = new Text(rightDots);
+        rightText.setFont(new Font("Arial Unicode MS", 20));
         rightText.setFill(Color.BLACK);
         rightText.setTranslateX(25);
         if (r == 0) rightText.setText("");
@@ -65,12 +69,13 @@ public class Domino extends StackPane {
         int temp = leftValue;
         leftValue = rightValue;
         rightValue = temp;
-        leftText.setText(String.valueOf(leftValue));
-        rightText.setText(String.valueOf(rightValue));
+        String leftDots = getDots(leftValue);
+        String rightDots = getDots(rightValue);
+        leftText.setText(leftDots);
+        rightText.setText(rightDots);
         if (leftValue == 0) leftText.setText("");
         if (rightValue == 0) rightText.setText("");
     }
-
     public boolean getSelected() {
         return selected;
     }
@@ -86,7 +91,25 @@ public class Domino extends StackPane {
     public String toString() {
         return "[" + leftValue + " " + rightValue + "]";
     }
-
+    private String getDots(int value) {
+        // Unicode characters for domino dots
+        String[] dotPatterns = {
+                "\u2800", // Blank
+                "\u2849", // 1 dot
+                "\u2855", // 2 dots
+                "\u285B", // 3 dots
+                "\u28E7", // 4 dots
+                "\u28EF", // 5 dots
+                "\u28F7", // 6 dots
+        };
+        if (value == 0) {
+            return dotPatterns[0];
+        } else if (value < 7) {
+            return dotPatterns[value];
+        } else {
+            return "";
+        }
+    }
     private void handleMouseClick(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY) {
             this.selected = !selected;
