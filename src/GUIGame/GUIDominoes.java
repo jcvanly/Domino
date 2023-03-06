@@ -12,7 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Jack Vanlyssel
@@ -70,7 +71,7 @@ public class GUIDominoes {
         lastPlayerComp = false;
 
         createGameInfoText();
-        createPlayerTray();
+        createPlayerHand();
         createPlayArea();
         createButtons();
         createBackGround();
@@ -102,9 +103,9 @@ public class GUIDominoes {
     /***
      * adds player tray to the display
      */
-    private void createPlayerTray() {
+    private void createPlayerHand() {
         player.setLayoutX(400);
-        player.setLayoutY(240);
+        player.setLayoutY(440);
         mainPane.getChildren().add(player);
     }
 
@@ -113,10 +114,10 @@ public class GUIDominoes {
      */
     private void createGameInfoText() {
         boneyard.setLayoutX(600);
-        boneyard.setLayoutY(175);
+        boneyard.setLayoutY(75);
 
         computer.setLayoutX(625);
-        computer.setLayoutY(150);
+        computer.setLayoutY(50);
 
         mainPane.getChildren().addAll(boneyard,computer);
     }
@@ -125,10 +126,14 @@ public class GUIDominoes {
      * adds the play area to the display
      */
     private void createPlayArea() {
-        board.setLayoutX(10);
-        board.setLayoutY(10);
+        board.setLayoutX(700);
+        board.setLayoutY(200);
         mainPane.getChildren().addAll(board);
     }
+
+
+
+
 
     /***
      * adds the usable buttons to the display
@@ -145,11 +150,11 @@ public class GUIDominoes {
     private void createDrawButton() {
         Button drawButton = new Button("Draw");
         drawButton.setLayoutX(450);
-        drawButton.setLayoutY(190);
+        drawButton.setLayoutY(600);
         //Button Styling
         drawButton.setPrefWidth(100);
         drawButton.setPrefHeight(25);
-        drawButton.setFont(Font.font("Verdana", 15));
+        drawButton.setFont(Font.font("Verdana", 20));
         mainPane.getChildren().add(drawButton);
 
         drawButton.setOnAction(e ->{
@@ -164,11 +169,11 @@ public class GUIDominoes {
     private void createPassButton() {
         Button passButton = new Button("Pass");
         passButton.setLayoutX(950);
-        passButton.setLayoutY(190);
+        passButton.setLayoutY(600);
         //Button Styling
         passButton.setPrefWidth(100);
         passButton.setPrefHeight(25);
-        passButton.setFont(Font.font("Verdana", 15));
+        passButton.setFont(Font.font("Verdana", 20));
         mainPane.getChildren().add(passButton);
 
         passButton.setOnAction(e -> {
@@ -202,7 +207,7 @@ public class GUIDominoes {
         rightBtn.setTextFill(Color.WHITE);
 
         buttonBox.setLayoutX(675);
-        buttonBox.setLayoutY(190);
+        buttonBox.setLayoutY(605);
         mainPane.getChildren().add(buttonBox);
 
         rightBtn.setOnAction(e -> player.setPlayDirection('r'));
@@ -254,10 +259,12 @@ public class GUIDominoes {
                         computer.takeTurn();
                         lastPlayerComp = true;
                     }
+
                     player.updateDisplay();
                     boneyard.updateDisplay();
                     computer.updateDisplay();
                     board.updateDisplay();
+
                     checkForGameOver();
                     turnMade = false;
                 }
@@ -289,7 +296,7 @@ public class GUIDominoes {
             gameIsOver = true;
         }
 
-        if(player.getTrayLength() == 0) {
+        if(player.getHandLength() == 0) {
             gameIsOver = true;
         }
 
@@ -308,7 +315,6 @@ public class GUIDominoes {
     private void gameOver() {
         mainPane.getChildren().clear();
         createBackGround();
-        createPlayArea();
         createEndGameText();
     }
 

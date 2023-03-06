@@ -106,31 +106,5 @@ public class Board extends VBox {
     public int getSize() {
         return playedDominoes.size();
     }
-
-
-    public String toString() {
-        StringBuilder top = new StringBuilder();
-        StringBuilder bottom = new StringBuilder();
-        int counter = 0;
-
-        if (topOffset) {
-            top.append("  ");
-            for (Domino d : playedDominoes) {
-                if ((counter%2) == 1) top.append(d.toString());
-                else bottom.append(d.toString());
-                counter++;
-            }
-        }
-        else {
-            bottom.append("  ");
-            for (Domino d : playedDominoes) {
-                if ((counter%2) == 0) top.append(d.toString());
-                else bottom.append(d.toString());
-                counter++;
-            }
-        }
-        return top + "\n" + bottom;
-    }
-
 }
 

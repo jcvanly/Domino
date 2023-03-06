@@ -69,7 +69,7 @@ public class Player extends VBox {
         playDirection = dir;
     }
 
-    public int getTrayLength() {
+    public int getHandLength() {
         return hand.getHandSize();
     }
 
@@ -117,14 +117,35 @@ public class Player extends VBox {
 
     }
 
+    public void changePlayAreaX(char side) {
+        double currentX = board.getLayoutX();
+        double newX;
+
+        if(side == 'r')
+        {
+            newX = currentX - 50;
+        }
+
+        else
+        {
+            newX = currentX - 50;
+        }
+
+        board.setLayoutX(newX);
+    }
+
     private void placeDomino(Domino dominoPlayed, char location) {
         //PLAY RIGHT SIDE
         if (location=='r') {
             board.playRight(dominoPlayed);
+            changePlayAreaX('r');
+
         }
         //PLAY LEFT SIDE
         else {
             board.playLeft(dominoPlayed);
+            changePlayAreaX('l');
+
         }
     }
 

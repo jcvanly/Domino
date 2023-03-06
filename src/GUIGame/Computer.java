@@ -41,7 +41,6 @@ public class Computer extends Text{
     }
 
     public void takeTurn() {
-        System.out.println("Computer's turn");
         int rightPlayableVal = board.getRight().getRightValue();
         int leftPlayableVal = board.getLeft().getLeftValue();
 
@@ -84,8 +83,6 @@ public class Computer extends Text{
         if (i == hand.getHandSize()) {
             drawFromBoneyard();
         }
-
-        System.out.println(this);
     }
 
     public void updateDisplay() {
@@ -116,26 +113,40 @@ public class Computer extends Text{
 
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
-            System.out.println("Computer can't play.");
             canPlay = false;
         }
         else {
             Domino d = boneyard.fetchDomino();
-            System.out.println("Computer drew from the boneyard.");
             hand.addDomino(d);
         }
     }
+    public void changePlayAreaX(char side) {
+        double currentX = board.getLayoutX();
+        double newX;
 
+        if(side == 'r')
+        {
+            newX = currentX;
+        }
+
+        else
+        {
+            newX = currentX - 50;
+        }
+
+        board.setLayoutX(newX);
+    }
     private void playDomino(Domino dominoPlayed, char location) {
         //PLAY RIGHT SIDE
         if (location=='r') {
-            System.out.println("Computer plays " + dominoPlayed + " at right");
             board.playRight(dominoPlayed);
+            changePlayAreaX('r');
         }
         //PLAY LEFT SIDE
         else {
-            System.out.println("Computer plays " + dominoPlayed + " at left");
             board.playLeft(dominoPlayed);
+            changePlayAreaX('l');
+
         }
     }
 
