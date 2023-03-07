@@ -76,6 +76,10 @@ public class Hand extends HBox {
         return total;
     }
 
+    public void clear() {
+        dominoList.clear();
+    }
+
     public String toString() {
         return "Tray: " + dominoList.toString();
     }

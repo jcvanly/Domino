@@ -150,4 +150,11 @@ public class Computer extends Text{
         }
     }
 
+    public void reset() {
+        hand.clear();
+        initTray();
+        canPlay = true;
+        updateDisplay();
+    }
+
 }

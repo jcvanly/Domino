@@ -106,5 +106,10 @@ public class Board extends VBox {
     public int getSize() {
         return playedDominoes.size();
     }
+
+    public void reset() {
+        playedDominoes.clear();
+        topOffset = false;
+    }
 }
 

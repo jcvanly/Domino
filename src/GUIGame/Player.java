@@ -50,13 +50,11 @@ public class Player extends VBox {
     }
 
     public void takeTurn(String turnType) {
-        if(turnType.equals("Draw")) {
+        if (turnType.equals("Draw")) {
             drawFromBoneyard();
-        }
-        else if (turnType.equals("Play")) {
+        } else if (turnType.equals("Play")) {
             playDomino();
-        }
-        else {
+        } else {
             canPlay = false;
         }
     }
@@ -123,7 +121,7 @@ public class Player extends VBox {
 
         if(side == 'r')
         {
-            newX = currentX - 50;
+            newX = currentX;
         }
 
         else
@@ -152,11 +150,18 @@ public class Player extends VBox {
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
             canPlay = false;
-        }
-        else {
+        } else {
             Domino d = boneyard.fetchDomino();
             hand.addDomino(d);
+            hand.updateDisplay();
+            boneyard.updateDisplay();
         }
     }
 
+    public void reset() {
+        hand.clear();
+        initTray();
+        hand.updateDisplay();
+        canPlay = true;
+    }
 }

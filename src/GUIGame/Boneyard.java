@@ -58,5 +58,10 @@ public class Boneyard extends Text {
         Collections.shuffle(dominoList);
     }
 
+    public void reset() {
+        dominoList.clear();
+        initBoneyard();
+        updateDisplay();
+    }
 }
 

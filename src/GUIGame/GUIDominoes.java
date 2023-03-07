@@ -4,16 +4,15 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Jack Vanlyssel
@@ -59,7 +58,7 @@ public class GUIDominoes {
 
         mainStage.setTitle("Dominoes!");
         mainStage.setResizable(false);
-        Image icon = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\icon.png");
+        Image icon = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\taskbarIcon.png");
         mainStage.getIcons().add(icon);
 
         boneyard = new Boneyard();
@@ -106,7 +105,13 @@ public class GUIDominoes {
     private void createPlayerHand() {
         player.setLayoutX(400);
         player.setLayoutY(440);
-        mainPane.getChildren().add(player);
+
+        // Create a rectangle to surround the player's hand
+        Rectangle rect = new Rectangle(50, 405, 1400, 125);
+        rect.setFill(Color.GRAY);
+        rect.setOpacity(0.6);
+
+        mainPane.getChildren().addAll(rect, player);
     }
 
     /***
@@ -131,16 +136,11 @@ public class GUIDominoes {
         mainPane.getChildren().addAll(board);
     }
 
-
-
-
-
     /***
      * adds the usable buttons to the display
      */
     private void createButtons() {
         createDrawButton();
-        createPassButton();
         createRadioButton();
     }
 
@@ -151,34 +151,17 @@ public class GUIDominoes {
         Button drawButton = new Button("Draw");
         drawButton.setLayoutX(450);
         drawButton.setLayoutY(600);
-        //Button Styling
+
+        // Button Styling
         drawButton.setPrefWidth(100);
-        drawButton.setPrefHeight(25);
+        drawButton.setPrefHeight(40);
         drawButton.setFont(Font.font("Verdana", 20));
+        drawButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 20;");
+
         mainPane.getChildren().add(drawButton);
 
         drawButton.setOnAction(e ->{
             player.takeTurn("Draw");
-            turnMade = true;
-        });
-    }
-
-    /***
-     * creates button uses to pass
-     */
-    private void createPassButton() {
-        Button passButton = new Button("Pass");
-        passButton.setLayoutX(950);
-        passButton.setLayoutY(600);
-        //Button Styling
-        passButton.setPrefWidth(100);
-        passButton.setPrefHeight(25);
-        passButton.setFont(Font.font("Verdana", 20));
-        mainPane.getChildren().add(passButton);
-
-        passButton.setOnAction(e -> {
-            player.takeTurn("Pass");
-            turnMade = true;
         });
     }
 
@@ -188,31 +171,49 @@ public class GUIDominoes {
      */
     private void createRadioButton() {
         HBox buttonBox = new HBox();
-        ToggleGroup group = new ToggleGroup();
 
-        RadioButton leftBtn = new RadioButton("Left");
-        leftBtn.setToggleGroup(group);
-        leftBtn.setPrefWidth(100);
+        ToggleButton leftBtn = new ToggleButton("Left");
+        leftBtn.setPrefWidth(75);
         leftBtn.setPrefHeight(25);
-        leftBtn.setFont(Font.font("Verdana", 15));
-        leftBtn.setTextFill(Color.WHITE);
+        leftBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
+        leftBtn.setTextFill(Color.BLACK);
 
-        RadioButton rightBtn = new RadioButton("Right");
-        rightBtn.setToggleGroup(group);
-        rightBtn.setSelected(true);
-        buttonBox.getChildren().addAll(leftBtn, rightBtn);
-        rightBtn.setPrefWidth(100);
+        ToggleButton rightBtn = new ToggleButton("Right");
+        rightBtn.setPrefWidth(75);
         rightBtn.setPrefHeight(25);
-        rightBtn.setFont(Font.font("Verdana", 15));
-        rightBtn.setTextFill(Color.WHITE);
+        rightBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
+        rightBtn.setTextFill(Color.BLACK);
+        leftBtn.setSelected(false);
+        rightBtn.setSelected(true);
 
+        buttonBox.getChildren().addAll(leftBtn, rightBtn);
         buttonBox.setLayoutX(675);
         buttonBox.setLayoutY(605);
         mainPane.getChildren().add(buttonBox);
 
-        rightBtn.setOnAction(e -> player.setPlayDirection('r'));
+        ToggleGroup group = new ToggleGroup();
+        leftBtn.setToggleGroup(group);
+        rightBtn.setToggleGroup(group);
 
-        leftBtn.setOnAction(e -> player.setPlayDirection('l'));
+        group.selectToggle(rightBtn);
+        rightBtn.setStyle("-fx-background-color: #00CC00; -fx-background-radius: 5em;");
+
+
+        group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                oldValue.setSelected(true);
+            } else {
+                if (newValue == leftBtn) {
+                    player.setPlayDirection('l');
+                    leftBtn.setStyle("-fx-background-color: #00CC00; -fx-background-radius: 5em;");
+                    rightBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
+                } else {
+                    player.setPlayDirection('r');
+                    rightBtn.setStyle("-fx-background-color: #00CC00; -fx-background-radius: 5em;");
+                    leftBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
+                }
+            }
+        });
     }
 
     /***
@@ -241,7 +242,45 @@ public class GUIDominoes {
         winnerText.setLayoutX(600);
         winnerText.setLayoutY(220);
 
-        mainPane.getChildren().add(winnerText);
+        Button playAgainButton = new Button("Play Again");
+        playAgainButton.setLayoutX(675);
+        playAgainButton.setLayoutY(300);
+        playAgainButton.setPrefWidth(150);
+        playAgainButton.setPrefHeight(50);
+        playAgainButton.setFont(new Font("Verdana", 20));
+        playAgainButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 20;");
+        playAgainButton.setOnAction(e -> {
+            restartGame();
+        });
+
+        mainPane.getChildren().addAll(winnerText, playAgainButton);
+    }
+
+    private void restartGame() {
+        // Reset game variables
+        boneyard.reset();
+        board.reset();
+        player.reset();
+        computer.reset();
+        turnMade = false;
+        gameIsOver = false;
+        lastPlayerComp = false;
+
+        // Update displays
+        player.updateDisplay();
+        boneyard.updateDisplay();
+        computer.updateDisplay();
+        board.updateDisplay();
+
+        // Remove game over elements
+        mainPane.getChildren().clear();
+
+        // Recreate game elements
+        createGameInfoText();
+        createPlayerHand();
+        createPlayArea();
+        createButtons();
+        createBackGround();
     }
 
     /***

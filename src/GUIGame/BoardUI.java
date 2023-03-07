@@ -18,9 +18,13 @@ public class BoardUI extends Application {
     public void start(Stage primaryStage) {
         // Create the start button
         Button startButton = new Button("Start");
-        startButton.setFont(new Font(24));
+        startButton.setFont(Font.font("Verdana", 20));
+        // Apply styling
+        startButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 5px; -fx-pref-width: 100px; -fx-pref-height: 25px;");
+
         startButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override public void handle(ActionEvent e) {
+            @Override
+            public void handle(ActionEvent e) {
                 startGame(primaryStage);
                 ((Stage) startButton.getScene().getWindow()).close();
 
@@ -66,7 +70,6 @@ public class BoardUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
     public void startGame(Stage primaryStage) {
         GUIDominoes manager = new GUIDominoes();
         primaryStage = manager.getMainStage();
