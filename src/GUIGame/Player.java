@@ -121,12 +121,12 @@ public class Player extends VBox {
 
         if(side == 'r')
         {
-            newX = currentX;
+            newX = currentX-25;
         }
 
         else
         {
-            newX = currentX - 50;
+            newX = currentX-25;
         }
 
         board.setLayoutX(newX);

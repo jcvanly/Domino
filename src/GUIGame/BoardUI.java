@@ -66,6 +66,8 @@ public class BoardUI extends Application {
         // Create the scene with the BorderPane as the root
         Scene scene = new Scene(layout, 1500, 700);
 
+        Image icon = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\taskbarIcon.png");
+        primaryStage.getIcons().add(icon);
         // Set the scene and show the stage
         primaryStage.setScene(scene);
         primaryStage.show();

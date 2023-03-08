@@ -149,7 +149,7 @@ public class GUIDominoes {
      */
     private void createDrawButton() {
         Button drawButton = new Button("Draw");
-        drawButton.setLayoutX(450);
+        drawButton.setLayoutX(625);
         drawButton.setLayoutY(600);
 
         // Button Styling
@@ -175,20 +175,20 @@ public class GUIDominoes {
         ToggleButton leftBtn = new ToggleButton("Left");
         leftBtn.setPrefWidth(75);
         leftBtn.setPrefHeight(25);
-        leftBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
-        leftBtn.setTextFill(Color.BLACK);
+        leftBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
+        leftBtn.setTextFill(Color.WHITE);
 
         ToggleButton rightBtn = new ToggleButton("Right");
         rightBtn.setPrefWidth(75);
         rightBtn.setPrefHeight(25);
-        rightBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
-        rightBtn.setTextFill(Color.BLACK);
+        rightBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
+        rightBtn.setTextFill(Color.WHITE);
         leftBtn.setSelected(false);
         rightBtn.setSelected(true);
 
         buttonBox.getChildren().addAll(leftBtn, rightBtn);
-        buttonBox.setLayoutX(675);
-        buttonBox.setLayoutY(605);
+        buttonBox.setLayoutX(785);
+        buttonBox.setLayoutY(607);
         mainPane.getChildren().add(buttonBox);
 
         ToggleGroup group = new ToggleGroup();
@@ -196,7 +196,7 @@ public class GUIDominoes {
         rightBtn.setToggleGroup(group);
 
         group.selectToggle(rightBtn);
-        rightBtn.setStyle("-fx-background-color: #00CC00; -fx-background-radius: 5em;");
+        rightBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
 
 
         group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
@@ -205,12 +205,12 @@ public class GUIDominoes {
             } else {
                 if (newValue == leftBtn) {
                     player.setPlayDirection('l');
-                    leftBtn.setStyle("-fx-background-color: #00CC00; -fx-background-radius: 5em;");
-                    rightBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
+                    leftBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
+                    rightBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
                 } else {
                     player.setPlayDirection('r');
-                    rightBtn.setStyle("-fx-background-color: #00CC00; -fx-background-radius: 5em;");
-                    leftBtn.setStyle("-fx-background-color: #CCCCCC; -fx-background-radius: 5em;");
+                    rightBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
+                    leftBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
                 }
             }
         });
