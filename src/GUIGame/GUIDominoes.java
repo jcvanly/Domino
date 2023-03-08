@@ -5,7 +5,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -25,6 +27,8 @@ import javafx.stage.Stage;
  */
 
 public class GUIDominoes {
+    private Button drawButton; // instance variable
+    private Button helpButton;
 
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 700;
@@ -155,14 +159,48 @@ public class GUIDominoes {
      */
     private void createButtons() {
         createDrawButton();
-        createRadioButton();
+        createLeftRightButton();
+        createHelpButton();
+
+    }
+    private void createHelpButton() {
+        helpButton = new Button();
+        Image image = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\question_mark.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(25);
+        imageView.setFitWidth(25);
+        helpButton.setGraphic(imageView);
+        helpButton.setLayoutX(1450);
+        helpButton.setLayoutY(10);
+        mainPane.getChildren().add(helpButton);
+
+        helpButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-border-radius: 20;");
+
+        // Set on click action to show image view
+        helpButton.setOnAction(e -> {
+            Image helpImage = new Image("C:\\Users\\jackv\\IdeaProjects\\Domino\\src\\Resources\\help.png");
+            ImageView helpView = new ImageView(helpImage);
+            helpView.setLayoutX(2);
+            helpView.setLayoutY(2);
+            mainPane.getChildren().add(helpView);
+
+            // Create close button and add to mainPane
+            Button closeButton = new Button("Close");
+            closeButton.setLayoutX(1450);
+            closeButton.setLayoutY(7);
+            closeButton.setOnAction(a -> {
+                mainPane.getChildren().remove(closeButton);
+                mainPane.getChildren().remove(helpView);
+            });
+            mainPane.getChildren().add(closeButton);
+        });
     }
 
     /***
      * creates button the player uses to draw
      */
     private void createDrawButton() {
-        Button drawButton = new Button("Draw");
+        drawButton = new Button("Draw");
         drawButton.setLayoutX(625);
         drawButton.setLayoutY(600);
 
@@ -183,7 +221,7 @@ public class GUIDominoes {
      * creates radio buttons the player uses to determine if they are going
      * to attempt to play on the left or right side of the play area
      */
-    private void createRadioButton() {
+    private void createLeftRightButton() {
         HBox buttonBox = new HBox();
 
         ToggleButton leftBtn = new ToggleButton("Left");
@@ -314,7 +352,6 @@ public class GUIDominoes {
                         computer.takeTurn();
                         lastPlayerComp = true;
                     }
-
                     player.updateDisplay();
                     boneyard.updateDisplay();
                     computer.updateDisplay();

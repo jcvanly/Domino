@@ -63,14 +63,15 @@ public class Player extends VBox {
         }
     }
 
-    private boolean hasPlayableDomino() {
+    public boolean hasPlayableDomino() {
         int rightPlayableVal = board.getRight().getRightValue();
         int leftPlayableVal = board.getLeft().getLeftValue();
 
         for (int i = 0; i < hand.getHandSize(); i++) {
             Domino d = hand.getDominoAt(i);
             if (d.getLeftValue() == leftPlayableVal || d.getRightValue() == rightPlayableVal ||
-                    leftPlayableVal == 0 || rightPlayableVal == 0) {
+                    leftPlayableVal == 0 || rightPlayableVal == 0 || d.getLeftValue() == rightPlayableVal
+            || d.getRightValue() == leftPlayableVal) {
                 // The player has a playable domino
                 return true;
             }
