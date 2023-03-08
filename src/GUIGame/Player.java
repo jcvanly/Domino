@@ -51,12 +51,33 @@ public class Player extends VBox {
 
     public void takeTurn(String turnType) {
         if (turnType.equals("Draw")) {
+            if (hasPlayableDomino()) {
+                // Don't draw a new domino if the player has a playable one
+                return;
+            }
             drawFromBoneyard();
         } else if (turnType.equals("Play")) {
             playDomino();
         } else {
             canPlay = false;
         }
+    }
+
+    private boolean hasPlayableDomino() {
+        int rightPlayableVal = board.getRight().getRightValue();
+        int leftPlayableVal = board.getLeft().getLeftValue();
+
+        for (int i = 0; i < hand.getHandSize(); i++) {
+            Domino d = hand.getDominoAt(i);
+            if (d.getLeftValue() == leftPlayableVal || d.getRightValue() == rightPlayableVal ||
+                    leftPlayableVal == 0 || rightPlayableVal == 0) {
+                // The player has a playable domino
+                return true;
+            }
+        }
+
+        // The player does not have a playable domino
+        return false;
     }
 
     public boolean getCanPlay() {

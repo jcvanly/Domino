@@ -93,7 +93,7 @@ public class Computer extends Text{
         return canPlay;
     }
 
-    public int getTrayLength() {
+    public int getHandLength() {
         return hand.getHandSize();
     }
 

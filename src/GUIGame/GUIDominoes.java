@@ -3,7 +3,6 @@ package GUIGame;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -29,7 +28,8 @@ public class GUIDominoes {
 
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 700;
-
+    private Text playerScoreText;
+    private Text computerScoreText;
     private AnchorPane mainPane;
     private Scene mainScene;
     private Stage mainStage;
@@ -80,6 +80,8 @@ public class GUIDominoes {
         boneyard.updateDisplay();
         computer.updateDisplay();
         board.updateDisplay();
+        playerScoreText.setText("Player Score: " + player.getScore());
+        computerScoreText.setText("Computer Score: " + computer.getScore());
     }
 
     /***
@@ -124,7 +126,19 @@ public class GUIDominoes {
         computer.setLayoutX(625);
         computer.setLayoutY(50);
 
-        mainPane.getChildren().addAll(boneyard,computer);
+        playerScoreText = new Text("Player Score: 0");
+        playerScoreText.setFont(new Font("Verdana", 20));
+        playerScoreText.setFill(Color.WHITE);
+        playerScoreText.setLayoutX(50);
+        playerScoreText.setLayoutY(50);
+
+        computerScoreText = new Text("Computer Score: 0");
+        computerScoreText.setFont(new Font("Verdana", 20));
+        computerScoreText.setFill(Color.WHITE);
+        computerScoreText.setLayoutX(50);
+        computerScoreText.setLayoutY(100);
+
+        mainPane.getChildren().addAll(boneyard,computer,playerScoreText,computerScoreText);
     }
 
     /***
@@ -271,6 +285,8 @@ public class GUIDominoes {
         boneyard.updateDisplay();
         computer.updateDisplay();
         board.updateDisplay();
+        playerScoreText.setText("Player Score: " + player.getScore());
+        computerScoreText.setText("Computer Score: " + computer.getScore());
 
         // Remove game over elements
         mainPane.getChildren().clear();
@@ -303,6 +319,8 @@ public class GUIDominoes {
                     boneyard.updateDisplay();
                     computer.updateDisplay();
                     board.updateDisplay();
+                    playerScoreText.setText("Player Score: " + player.getScore());
+                    computerScoreText.setText("Computer Score: " + computer.getScore());
 
                     checkForGameOver();
                     turnMade = false;
@@ -331,18 +349,15 @@ public class GUIDominoes {
      * Checks if either the player or computer has won
      */
     private void checkForGameOver() {
-        if (boneyard.getSize() == 0) {
-            gameIsOver = true;
-        }
-
         if(player.getHandLength() == 0) {
             gameIsOver = true;
         }
 
-        if(computer.getTrayLength() == 0) {
+        if(computer.getHandLength() == 0) {
             gameIsOver = true;
         }
-        //If neither of them have played
+
+        // Check if neither player can play
         if (!player.getCanPlay() && !computer.getCanPlay()) {
             gameIsOver = true;
         }
