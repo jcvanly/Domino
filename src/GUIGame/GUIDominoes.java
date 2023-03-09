@@ -187,7 +187,7 @@ public class GUIDominoes {
             // Create close button and add to mainPane
             Button closeButton = new Button("Close");
             closeButton.setLayoutX(1450);
-            closeButton.setLayoutY(7);
+            closeButton.setLayoutY(5);
             closeButton.setOnAction(a -> {
                 mainPane.getChildren().remove(closeButton);
                 mainPane.getChildren().remove(helpView);
