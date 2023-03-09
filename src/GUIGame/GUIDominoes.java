@@ -222,7 +222,6 @@ public class GUIDominoes {
      */
     private void createLeftRightButton() {
         HBox buttonBox = new HBox();
-
         ToggleButton leftBtn = new ToggleButton("Left");
         leftBtn.setPrefWidth(75);
         leftBtn.setPrefHeight(25);
@@ -232,7 +231,7 @@ public class GUIDominoes {
         ToggleButton rightBtn = new ToggleButton("Right");
         rightBtn.setPrefWidth(75);
         rightBtn.setPrefHeight(25);
-        rightBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
+        rightBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
         rightBtn.setTextFill(Color.WHITE);
         leftBtn.setSelected(false);
         rightBtn.setSelected(true);
@@ -246,24 +245,23 @@ public class GUIDominoes {
         leftBtn.setToggleGroup(group);
         rightBtn.setToggleGroup(group);
 
-        group.selectToggle(rightBtn);
-        rightBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
-
-
         group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue == null) {
-                oldValue.setSelected(true);
-            } else {
+//            if (newValue == null) {
+//                oldValue.setSelected(true);
+//            }
+
                 if (newValue == leftBtn) {
                     player.setPlayDirection('l');
                     leftBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
                     rightBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
-                } else {
+                }
+
+                else if (newValue == rightBtn){
                     player.setPlayDirection('r');
                     rightBtn.setStyle("-fx-background-color: #4CAF50; -fx-background-radius: 5em;");
                     leftBtn.setStyle("-fx-background-color: #A9A9A9; -fx-background-radius: 5em;");
                 }
-            }
+
         });
     }
 
@@ -290,6 +288,7 @@ public class GUIDominoes {
                 winnerText.setText("Player Wins!");
             }
         }
+
         winnerText.setLayoutX(600);
         winnerText.setLayoutY(220);
 
@@ -394,7 +393,7 @@ public class GUIDominoes {
         }
 
         // Check if neither player can play
-        if (!player.getCanPlay() && !computer.getCanPlay()) {
+        if (player.getCanPlay() == false) {
             gameIsOver = true;
         }
     }

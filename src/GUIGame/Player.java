@@ -14,7 +14,7 @@ package GUIGame;
  * domino is played.
  */
 
- import javafx.scene.layout.VBox;
+import javafx.scene.layout.VBox;
 public class Player extends VBox {
 
     private final int STARTING_AMOUNT = 7;
@@ -25,7 +25,7 @@ public class Player extends VBox {
     private boolean canPlay;
 
     private int selectedDominoIndex;
-    private char playDirection;
+    public char playDirection;
 
     public Player(Boneyard boneyard, Board board) {
         this.boneyard = boneyard;
@@ -59,9 +59,13 @@ public class Player extends VBox {
                 return;
             }
             drawFromBoneyard();
-        } else if (turnType.equals("Play")) {
+        }
+
+        else if (turnType.equals("Play")) {
             playDomino();
-        } else {
+        }
+
+        else {
             canPlay = false;
         }
     }
@@ -118,17 +122,28 @@ public class Player extends VBox {
             placeDomino(d,playDirection);
         }
         else {
-            int rightPlayableVal = board.getRight().getRightValue();
-            int leftPlayableVal = board.getLeft().getLeftValue();
+            int rightPlayableVal = 0;
+            int leftPlayableVal = 0;
+
+            Domino right = board.getRight();
+            Domino left = board.getLeft();
+
+            if (right != null) {
+                rightPlayableVal = right.getRightValue();
+            }
+
+            if (left != null) {
+                leftPlayableVal = left.getLeftValue();
+            }
 
             if (playDirection == 'r') {
                 if (d.getLeftValue() == rightPlayableVal ||
-                        rightPlayableVal == 0 || d.getLeftValue() == 0) {
+                        rightPlayableVal == 0 || d.getLeftValue() == 0 ) {
                     hand.removeDominoAt(selectedDominoIndex);
                     placeDomino(d, 'r');
                 }
             }
-            else {
+            else if (playDirection == 'l'){
                 if (d.getRightValue() == leftPlayableVal ||
                         leftPlayableVal == 0 || d.getRightValue() == 0) {
                     hand.removeDominoAt(selectedDominoIndex);
@@ -137,7 +152,6 @@ public class Player extends VBox {
             }
         }
         selectedDominoIndex = -1;
-
     }
 
     public void changePlayAreaX(char side) {
@@ -149,26 +163,28 @@ public class Player extends VBox {
             newX = currentX-25;
         }
 
-        else
+        else if(side == 'l')
         {
             newX = currentX-25;
         }
+
+        else {newX = currentX;}
 
         board.setLayoutX(newX);
     }
 
     private void placeDomino(Domino dominoPlayed, char location) {
-        //PLAY RIGHT SIDE
-        if (location=='r') {
+        // PLAY RIGHT SIDE
+        if (location == 'r') {
             board.playRight(dominoPlayed);
             changePlayAreaX('r');
-
+            playDirection = 'r'; // Update player's playDirection
         }
-        //PLAY LEFT SIDE
-        else {
+        // PLAY LEFT SIDE
+        else if (location == 'l') {
             board.playLeft(dominoPlayed);
             changePlayAreaX('l');
-
+            playDirection = 'l'; // Update player's playDirection
         }
     }
 

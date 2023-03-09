@@ -43,6 +43,8 @@ public class Computer extends Text{
         int rightPlayableVal = board.getRight().getRightValue();
         int leftPlayableVal = board.getLeft().getLeftValue();
 
+        boolean playedDomino = false;
+
         int i = 0;
         while (i < hand.getHandSize()) {
             Domino d = hand.seeDominoAt(i);
@@ -51,6 +53,7 @@ public class Computer extends Text{
                 //PLAY IT
                 d = hand.removeDominoAt(i);
                 playDomino(d, 'l');
+                playedDomino = true;
                 break;
             }
             else if (d.getLeftValue() == rightPlayableVal ||
@@ -58,6 +61,7 @@ public class Computer extends Text{
                 //PLAY IT
                 d = hand.removeDominoAt(i);
                 playDomino(d, 'r');
+                playedDomino = true;
                 break;
             }
             else if (d.getRightValue() == rightPlayableVal) {
@@ -65,6 +69,7 @@ public class Computer extends Text{
                 d = hand.removeDominoAt(i);
                 d.rotateDomino();
                 playDomino(d, 'r');
+                playedDomino = true;
                 break;
             }
             else if (d.getLeftValue() == leftPlayableVal) {
@@ -72,6 +77,7 @@ public class Computer extends Text{
                 d = hand.removeDominoAt(i);
                 d.rotateDomino();
                 playDomino(d, 'l');
+                playedDomino = true;
                 break;
             }
             else {
@@ -79,8 +85,11 @@ public class Computer extends Text{
             }
         }
 
-        if (i == hand.getHandSize()) {
-            drawFromBoneyard();
+        if (!playedDomino) {
+            boolean drewDomino = drawFromBoneyard();
+            if (drewDomino) {
+                takeTurn();
+            }
         }
     }
 
@@ -110,13 +119,15 @@ public class Computer extends Text{
         }
     }
 
-    private void drawFromBoneyard() {
+    private boolean drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
             canPlay = false;
+            return false;
         }
         else {
             Domino d = boneyard.fetchDomino();
             hand.addDomino(d);
+            return true;
         }
     }
     public void changePlayAreaX(char side) {
