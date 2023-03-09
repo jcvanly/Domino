@@ -1,6 +1,8 @@
 package ConsoleGame;
 
 /**
+ * Jack Vanlyssel
+ *
  * Defines the player class which will handle input for the human
  * player. The player class is passed a ConsoleGame.Boneyard and ConsoleGame.Board on creation.
  * The player is then prompted to enter input by takeTurn. They can

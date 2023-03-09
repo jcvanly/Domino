@@ -18,16 +18,13 @@ public class ConsoleDominoes {
 
     private static Computer computer;
     private static Player player;
-    private static boolean gameIsOver;
-    private static boolean lastPlayerComp;
+
 
     private static void startGame() {
         Boneyard boneYard = new Boneyard();
         Board playArea = new Board();
         computer = new Computer(boneYard, playArea);
         player = new Player(boneYard, playArea);
-        gameIsOver = false;
-        lastPlayerComp = false;
 
         System.out.println("Dominoes!");
         System.out.println(computer);
