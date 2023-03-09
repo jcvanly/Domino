@@ -31,7 +31,7 @@ public class Boneyard {
     }
 
     public String toString() {
-        return "The ConsoleGame.Boneyard has " + dominoList.size() + " dominoes";
+        return "The Boneyard has " + dominoList.size() + " dominoes";
     }
 
     public Domino fetchDomino() {

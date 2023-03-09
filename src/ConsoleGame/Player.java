@@ -32,7 +32,7 @@ public class Player {
         this.playArea = board;
         canPlay = true;
         hand = new Hand();
-        initTray();
+        initHand();
         scanner = new Scanner(System.in);
     }
 
@@ -61,19 +61,19 @@ public class Player {
         return canPlay;
     }
 
-    public int getTrayLength() {
+    public int getHandLength() {
         return hand.getSize();
     }
 
     public int getScore() {
-        return hand.getTrayScore();
+        return hand.getHandScore();
     }
 
     public String toString() {
         return hand.toString();
     }
 
-    private void initTray() {
+    private void initHand() {
         for (int i = 0; i < STARTING_AMOUNT; i++) {
             hand.addDomino(boneyard.fetchDomino());
         }
@@ -83,7 +83,7 @@ public class Player {
         System.out.println("""
                 Human's turn
                 [p] Play Domino
-                [d] Draw from ConsoleGame.Boneyard
+                [d] Draw from Boneyard
                 [q] Quit""");
         return scanner.next().charAt(0);
     }
@@ -146,7 +146,7 @@ public class Player {
 
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
-            System.out.println("ConsoleGame.Boneyard is empty! Nothing played.");
+            System.out.println("Boneyard is empty! Nothing played.");
             canPlay = false;
         } else {
             Domino d = boneyard.fetchDomino();

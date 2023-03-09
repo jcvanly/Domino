@@ -7,7 +7,7 @@ package ConsoleGame;
  * has. getHandSize returns the size of a player's hand. addDomino
  * adds a domino to the players hand. removeDominoAt is used to
  * remove a domino at a specific index. seeDomino lets you peak
- * at a domino in a players hand. getTrayScore adds the value
+ * at a domino in a players hand. getHandScore adds the value
  * of all the dominoes in a players hand. toString will display
  * your hand of dominoes.
  */
@@ -39,7 +39,7 @@ public class Hand {
         return dominoList.get(index);
     }
 
-    public int getTrayScore() {
+    public int getHandScore() {
         int total = 0;
         for (Domino d : dominoList) {
             total += d.getLeftValue();
@@ -49,7 +49,7 @@ public class Hand {
     }
 
     public String toString() {
-        return "Tray: " + dominoList.toString();
+        return "Hand: " + dominoList.toString();
     }
 
 }

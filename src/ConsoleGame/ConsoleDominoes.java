@@ -46,20 +46,20 @@ public class ConsoleDominoes {
         gameOver(player, computer);
     }
     private static boolean isGameOver(Player player, Computer computer) {
-        return player.getTrayLength() == 0 || computer.getTrayLength() == 0
+        return player.getHandLength() == 0 || computer.getHandLength() == 0
                 || (!player.getCanPlay() && !computer.getCanPlay());
     }
     private static void gameOver(Player player, Computer computer) {
         int playerScore = player.getScore();
         int compScore = computer.getScore();
         System.out.println("\n\nGameOver!!!");
-        System.out.println("ConsoleGame.Player score: " + playerScore);
-        System.out.println("ConsoleGame.Computer score: " + compScore);
+        System.out.println("Player score: " + playerScore);
+        System.out.println("Computer score: " + compScore);
 
         if (playerScore < compScore) {
-            System.out.println("ConsoleGame.Player Wins!");
+            System.out.println("Player Wins!");
         } else if (compScore < playerScore) {
-            System.out.println("ConsoleGame.Computer Wins!");
+            System.out.println("Computer Wins!");
         }
     }
 }

@@ -27,11 +27,11 @@ public class Computer {
         canPlay = true;
 
         hand = new Hand();
-        initTray();
+        initHand();
     }
 
     public void takeTurn() {
-        System.out.println("ConsoleGame.Computer's turn");
+        System.out.println("Computer's turn");
         int rightPlayableVal = playArea.getRight().getRightValue();
         int leftPlayableVal = playArea.getLeft().getLeftValue();
 
@@ -82,19 +82,19 @@ public class Computer {
         return canPlay;
     }
 
-    public int getTrayLength() {
+    public int getHandLength() {
         return hand.getSize();
     }
 
     public int getScore() {
-        return hand.getTrayScore();
+        return hand.getHandScore();
     }
 
     public String toString() {
-        return "ConsoleGame.Computer has " + hand.getSize() + " dominoes";
+        return "Computer has " + hand.getSize() + " dominoes";
     }
 
-    private void initTray() {
+    private void initHand() {
         for (int i = 0; i < STARTING_AMOUNT; i++) {
             hand.addDomino(boneyard.fetchDomino());
         }
@@ -102,12 +102,12 @@ public class Computer {
 
     private void drawFromBoneyard() {
         if (boneyard.getSize() == 0) {
-            System.out.println("ConsoleGame.Computer can't play.");
+            System.out.println("Computer can't play.");
             canPlay = false;
         }
         else {
             Domino d = boneyard.fetchDomino();
-            System.out.println("ConsoleGame.Computer drew from the boneyard.");
+            System.out.println("Computer drew from the boneyard.");
             hand.addDomino(d);
         }
     }
@@ -115,12 +115,12 @@ public class Computer {
     private void playDomino(Domino dominoPlayed, char location) {
         //PLAY RIGHT SIDE
         if (location=='r') {
-            System.out.println("ConsoleGame.Computer plays " + dominoPlayed + " at right");
+            System.out.println("Computer plays " + dominoPlayed + " at right");
             playArea.playRight(dominoPlayed);
         }
         //PLAY LEFT SIDE
         else {
-            System.out.println("ConsoleGame.Computer plays " + dominoPlayed + " at left");
+            System.out.println("Computer plays " + dominoPlayed + " at left");
             playArea.playLeft(dominoPlayed);
         }
     }
