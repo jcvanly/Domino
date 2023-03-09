@@ -1,14 +1,17 @@
-package GUIGame; /**
+package GUIGame;
+
+/**
+ * Jack Vanlyssel
+ *
  * Defines the player class which will handle input for the human
- * player. The player class is passed a ConsoleGame.Boneyard and ConsoleGame.Board on creation.
+ * player. The player class is passed a Boneyard and Board on creation.
  * The player is then prompted to enter input by takeTurn. They can
- * choose to either draw from the ConsoleGame.Boneyard, play a domino, or quit.
+ * choose to either draw from the Boneyard, play a domino, or quit.
  * If they pick play, the user will be prompted with picking a
  * domino, choosing whether to play it on the left or right, and
  * choosing whether to rotate it or not. After specifying how they
  * want to play, playDomino is called with the commands and the
  * domino is played.
- *
  */
 
  import javafx.scene.layout.VBox;
@@ -31,7 +34,7 @@ public class Player extends VBox {
         canPlay = true;
 
         hand = new Hand();
-        initTray();
+        initHand();
 
         hand.updateDisplay();
 
@@ -101,7 +104,7 @@ public class Player extends VBox {
         return hand.toString();
     }
 
-    private void initTray() {
+    private void initHand() {
         for (int i = 0; i < STARTING_AMOUNT; i++) {
             hand.addDomino(boneyard.fetchDomino());
         }
@@ -182,7 +185,7 @@ public class Player extends VBox {
 
     public void reset() {
         hand.clear();
-        initTray();
+        initHand();
         hand.updateDisplay();
         canPlay = true;
     }

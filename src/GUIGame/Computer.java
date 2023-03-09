@@ -1,21 +1,20 @@
 package GUIGame;
 
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
-
 /**
  * Jack Vanlyssel
  *
  * This class creates the computer player that you will play
- * against. The computer is passed a ConsoleGame.Boneyard and a board
+ * against. The computer is passed a Boneyard and a board
  * just like the player is. Most of the work is done in
  * takeTurn which is the AI loop for the computer player.
  * Essentially, the computer just checks if a domino is
  * playable, then he plays it. If the computer can not
- * play a domino, he will draw a new one from the ConsoleGame.Boneyard.
+ * play a domino, he will draw a new one from the Boneyard.
  */
+
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Computer extends Text{
 
@@ -32,7 +31,7 @@ public class Computer extends Text{
         canPlay = true;
 
         hand = new Hand();
-        initTray();
+        initHand();
 
         setText(this.toString());
         setFont(new Font("Verdana", 20));
@@ -105,7 +104,7 @@ public class Computer extends Text{
         return "Computer has " + hand.getHandSize() + " dominoes";
     }
 
-    private void initTray() {
+    private void initHand() {
         for (int i = 0; i < STARTING_AMOUNT; i++) {
             hand.addDomino(boneyard.fetchDomino());
         }
@@ -152,7 +151,7 @@ public class Computer extends Text{
 
     public void reset() {
         hand.clear();
-        initTray();
+        initHand();
         canPlay = true;
         updateDisplay();
     }

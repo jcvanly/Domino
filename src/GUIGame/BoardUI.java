@@ -1,5 +1,12 @@
 package GUIGame;
 
+/**
+ * Jack Vanlyssel
+ *
+ * This class contains the starting screen that launches
+ * the rest of the game.
+ */
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-
 
 public class BoardUI extends Application {
 

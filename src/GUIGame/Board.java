@@ -1,12 +1,13 @@
 package GUIGame;
+
 /**
  * Jack Vanlyssel
  *
- * The ConsoleGame.Board class will generate the board that the dominoes
- * are played on. In this case, the board is shown in text.
+ * The Board class will generate the board that the dominoes
+ * are played on. In this case, the board is shown in a GUI.
  * The board is a Deque and you can use playRight and playLeft
- * in order play dominoes on either side of the board. toString
- * is used to generate the string representation of the board.
+ * in order play dominoes on either side of the board. updateDisplay
+ * is used to update the visual representation of the board.
  */
 
 import javafx.geometry.Pos;
@@ -15,7 +16,6 @@ import javafx.scene.layout.VBox;
 import java.util.Deque;
 import java.util.LinkedList;
 import javafx.scene.shape.Rectangle;
-
 
 public class Board extends VBox {
 

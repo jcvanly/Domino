@@ -1,20 +1,5 @@
 package GUIGame;
 
-import javafx.animation.AnimationTimer;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
 /**
  * Jack Vanlyssel
  *
@@ -25,6 +10,20 @@ import javafx.stage.Stage;
  * and if they are met, gameOver will then display the winner
  * and scores.
  */
+
+import javafx.animation.AnimationTimer;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class GUIDominoes {
     private Button drawButton; // instance variable
@@ -106,7 +105,7 @@ public class GUIDominoes {
     }
 
     /***
-     * adds player tray to the display
+     * adds player hand to the display
      */
     private void createPlayerHand() {
         player.setLayoutX(400);

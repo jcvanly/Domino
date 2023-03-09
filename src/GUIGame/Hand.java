@@ -1,17 +1,18 @@
-package GUIGame; /**
+package GUIGame;
+
+/**
  * Jack Vanlyssel
  *
- * ConsoleGame.Hand keeps track of the dominoes that a player currently
+ * Hand keeps track of the dominoes that a player currently
  * has. getHandSize returns the size of a player's hand. addDomino
  * adds a domino to the players hand. removeDominoAt is used to
  * remove a domino at a specific index. seeDomino lets you peak
- * at a domino in a players hand. getTrayScore adds the value
+ * at a domino in a players hand. getHandScore adds the value
  * of all the dominoes in a players hand. toString will display
  * your hand of dominoes.
  */
 
 import javafx.scene.layout.HBox;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class Hand extends HBox {
     }
 
     public String toString() {
-        return "Tray: " + dominoList.toString();
+        return "Hand: " + dominoList.toString();
     }
 
 }

@@ -1,12 +1,5 @@
 package GUIGame;
 
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-
 /**
  * Jack Vanlyssel
  *
@@ -17,9 +10,15 @@ import javafx.scene.shape.Rectangle;
  * value, and toString which returns the string representation
  * of a domino, [1 4] for example.
  */
+
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 
 public class Domino extends StackPane {
 

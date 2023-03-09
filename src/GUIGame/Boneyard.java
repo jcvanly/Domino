@@ -1,19 +1,20 @@
-package GUIGame; /**
+package GUIGame;
+
+/**
  * Jack Vanlyssel
  *
- * The ConsoleGame.Boneyard is a pile of dominoes that players must draw
+ * The Boneyard is a pile of dominoes that players must draw
  * their initial hands from. They also draw a domino from the
- * ConsoleGame.Boneyard if they cannot play any of their dominoes. fetchDomino
- * is used to get dominoes from the ConsoleGame.Boneyard, getSize will return
+ * Boneyard if they cannot play any of their dominoes. fetchDomino
+ * is used to get dominoes from the Boneyard, getSize will return
  * how many dominoes are in the BoneYard, toString will tell
- * the user how many dominoes are left in the ConsoleGame.Boneyard. Finally,
- * innitBoneyard will fill the ConsoleGame.Boneyard with 28 dominoes.
+ * the user how many dominoes are left in the Boneyard. Finally,
+ * innitBoneyard will fill the Boneyard with 28 dominoes.
  */
 
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-
 import java.util.Collections;
 import java.util.LinkedList;
 
